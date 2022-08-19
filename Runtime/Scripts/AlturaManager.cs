@@ -148,7 +148,7 @@ namespace AlturaWeb3.SDK {
             return response.response;
         }
         public static async Task<string> GetUsers() {
-            string url = host + "user/";
+            string url = BASE_URL + "user/";
             UnityWebRequest webRequest = UnityWebRequest.Get(url);
             await webRequest.SendWebRequest();
             return System.Text.Encoding.UTF8.GetString(webRequest.downloadHandler.data);
