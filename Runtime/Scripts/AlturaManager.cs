@@ -132,11 +132,11 @@ namespace AlturaWeb3.SDK {
         /// Calls the "user" endpoint. queryParams
         /// returns the  many user objects
         /// </summary>
-        public async Task<List<User>> GetUsers(Dictionary<string, string> queryParams)
-        {
-            Response<List<User>> response = await Get<List<User>>("user", queryParams, null);
-            return response.response;
-        }
+   //     public async Task<List<User>> GetUsers(Dictionary<string, string> queryParams)
+     //   {
+         //   Response<List<User>> response = await Get<List<User>>("user", queryParams, null);
+       //     return response.response;
+       // }
 
         /// <summary>
         /// Calls the "user/:address" endpoint. queryParams
@@ -146,6 +146,12 @@ namespace AlturaWeb3.SDK {
         {
             Response<User> response = await Get<User>("user/" + address, queryParams, null);
             return response.response;
+        }
+        public static async Task<string> GetUsers() {
+            string url = host + "user/";
+            UnityWebRequest webRequest = UnityWebRequest.Get(url);
+            await webRequest.SendWebRequest();
+            return System.Text.Encoding.UTF8.GetString(webRequest.downloadHandler.data);
         }
 
 
