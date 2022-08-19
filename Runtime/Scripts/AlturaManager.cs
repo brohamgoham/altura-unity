@@ -1,4 +1,3 @@
-
 using System;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
@@ -6,6 +5,16 @@ using UnityEngine;
 using UnityEngine.Networking;
 using System.Runtime.CompilerServices;
 using System.Collections.Generic;
+using System.Collections;
+using System.Linq;
+using System.Text;
+using System.IO;    
+using System.Net;
+using System.Net.Sockets;
+using System.Threading;
+using System.Net.NetworkInformation;
+using System.Net.Http;
+using System.Net.Http.Headers;
 
 namespace AlturaWeb3.SDK {
     /// <summary>
@@ -96,33 +105,7 @@ namespace AlturaWeb3.SDK {
             return response;
         }
 
-        /// <summary>
-        /// Post Request builder 
-        /// </summary>
-        private async Task<Response<T>> Post<T>(string endpoint, Dictionary<string, string> queryParams, object body)
-        {
-            string url = _baseUrl + endpoint;
-            if (queryParams != null)
-            {
-                url += "?";
-                foreach (KeyValuePair<string, string> kvp in queryParams)
-                {
-                    url += kvp.Key + "=" + kvp.Value + "&";
-                }
-                url = url.Substring(0, url.Length - 1);
-            }
-            HttpResponseMessage response = await _httpClient.PostAsync(url, new StringContent(JsonConvert.SerializeObject(body), Encoding.UTF8, "application/json"));
-            if (response.StatusCode == HttpStatusCode.OK)
-            {
-                string json = await response.Content.ReadAsStringAsync();
-                return new Response<T> { response = JsonConvert.DeserializeObject<T>(json) };
-            }
-            else
-            {
-                string json = await response.Content.ReadAsStringAsync();
-                return new Response<T> { error = JsonConvert.DeserializeObject<Error>(json) };
-            }
-        }
+
         /// <summary>
         /// Builder for Unity Get request
         /// </summary>
@@ -194,6 +177,8 @@ namespace AlturaWeb3.SDK {
         ///Calls the "item/holders/:address/:tokenId" endpoint. queryParams
         /// returns the  a single item object takes in address and tokenId
         /// </summary>
+    
+    /*
         public async Task<List<Holder>> GetItemHolders(string address, string tokenId)
         {
             Dictionary<string, string> queryParams = new Dictionary<string, string>();
@@ -202,6 +187,7 @@ namespace AlturaWeb3.SDK {
             Response<List<Holder>> response = await Get<List<Holder>>("item/holders/" + address + "/" + tokenId, queryParams, null);
             return response.response;
         }
+    */
 
         /// <summary>
         /// Calls the "item/events/:address/:tokenId" endpoint. queryParams
@@ -221,12 +207,16 @@ namespace AlturaWeb3.SDK {
         /// Calls the "item/activity" endpoint. queryParams
         /// returns the  a single item object takes in address and tokenId
         /// </summary>
+    
+
+    /*
         public async Task<List<Activity>> GetItemActivity(Dictionary<string, string> queryParams)
         {
             Response<List<Activity>> response = await Get<List<Activity>>("item/activity", queryParams, null);
             return response.response;
         }
 
+    */
 
         /// <summary>
         /// Calls the "collection/:address" endpoint. queryParams
@@ -257,15 +247,19 @@ namespace AlturaWeb3.SDK {
         /// takes in collectionAddress, tokenId, toAddress, and returns txnHash string
         /// POST request
         /// </summary>
+        
+        /*
         public async Task<string> TransferItem(string collectionAddress, string tokenId, string toAddress)
         {
             Dictionary<string, string> queryParams = new Dictionary<string, string>();
             queryParams.Add("collection_address", collectionAddress);
             queryParams.Add("token_id", tokenId);
             queryParams.Add("to_address", toAddress);
-            Response<string> response = await Post<string>("item/transfer", queryParams, null);
+       //     Response<string> response = await Post<string>("item/transfer", queryParams, null);
+       
             return response.response;
         }
+        */
  
         /// <summary>
         /// Calls the "/api/v2/item/transfer" endpoint. queryParams
@@ -273,6 +267,7 @@ namespace AlturaWeb3.SDK {
         /// takes in collectionAddress, tokenId, toAddress, and returns txnHash string
         /// send bulk transfer POST request
         /// </summary>
+/*
         public async Task<string> TransferItems(List<TransferItem> transferItems)
         {
             Dictionary<string, string> queryParams = new Dictionary<string, string>();
@@ -283,6 +278,7 @@ namespace AlturaWeb3.SDK {
             return response.response;
         }
 
+*/
 
 
 
@@ -291,6 +287,8 @@ namespace AlturaWeb3.SDK {
         /// takes in address tokenId, amount and to, returns txnHash string
         /// POST request
         /// </summary>
+        
+        /*
         public async Task<string> MintItem(string address, string tokenId, string to, decimal amount)
         {
             Dictionary<string, string> queryParams = new Dictionary<string, string>();
@@ -301,6 +299,7 @@ namespace AlturaWeb3.SDK {
             Response<string> response = await Post<string>("item/mint", queryParams, null);
             return response.response;
         }
+        */
     }
 
     [Serializable]
