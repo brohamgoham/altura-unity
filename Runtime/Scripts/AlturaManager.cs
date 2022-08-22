@@ -179,9 +179,6 @@ namespace AlturaWeb3.SDK {
             
         }
 
-        
-
-
 
         /// <summary>
         /// Calls the "item" endpoint. queryParams determing how many perPage, page, sortBy, sortOrder, and slim
@@ -199,7 +196,7 @@ namespace AlturaWeb3.SDK {
         /// Calls the "item/:address/:tokenId" endpoint. queryParams
         /// returns the  a single item object takes in address and tokenId
         /// </summary>
-        public async Task<string> GetItem(string address, string tokenId)
+        public static async Task<string> GetItem(string address, string tokenId)
         {
             UnityWebRequest request = UnityWebRequest.Get(BASE_URL + "item" + "/" + address + "/" + tokenId);
             await request.SendWebRequest();
@@ -212,7 +209,7 @@ namespace AlturaWeb3.SDK {
         /// </summary>
     
     
-        public async Task<string> GetItemHolders(string address, string tokenId)
+        public static async Task<string> GetItemHolders(string address, string tokenId)
         {
             UnityWebRequest request = UnityWebRequest.Get(BASE_URL + "item/holders");
             await request.SendWebRequest();
@@ -224,7 +221,7 @@ namespace AlturaWeb3.SDK {
         /// Calls the "item/events/:address/:tokenId" endpoint. queryParams
         /// returns the  a single item object takes in address and tokenId
         /// </summary>
-        public async Task<List<Event>> GetItemEvents(string address, string tokenId)
+        public static async Task<List<Event>> GetItemEvents(string address, string tokenId)
         {
             Dictionary<string, string> queryParams = new Dictionary<string, string>();
             queryParams.Add("address", address);
@@ -253,7 +250,7 @@ namespace AlturaWeb3.SDK {
         /// Calls the "collection/:address" endpoint. queryParams
         /// returns the  a single collection object takes in address
         /// </summary>
-        public async Task<Collections> GetCollection(string address, Dictionary<string, string> queryParams)
+        public static async Task<Collections> GetCollection(string address, Dictionary<string, string> queryParams)
         {
             Response<Collections> response = await Get<Collections>("collection/" + address, queryParams, null);
             return response.response;
@@ -263,7 +260,7 @@ namespace AlturaWeb3.SDK {
         /// Calls the "collection/" endpoint. queryParams
         /// returns the  all collections based on queryParams perPage, page, sortBy, sortOrder, and slim
         /// </summary>
-        public async Task<List<Collections>> GetCollections(Dictionary<string, string> queryParams)
+        public static async Task<List<Collections>> GetCollections(Dictionary<string, string> queryParams)
         {
             Response<List<Collections>> response = await Get<List<Collections>>("collection", queryParams, null);
             return response.response;
