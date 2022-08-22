@@ -196,15 +196,12 @@ namespace AlturaWeb3.SDK {
         /// Calls the "item/:address/:tokenId" endpoint. queryParams
         /// returns the  a single item object takes in address and tokenId
         /// </summary>
-        public static async Task<List<Dictionary<string, string>>> GetItem(string address, string tokenId)
+        public static async Task<string> GetItem(string address, string tokenId)
         {
             UnityWebRequest request = UnityWebRequest.Get(BASE_URL + "item" + "/" + address + "/" + tokenId);
             await request.SendWebRequest();
-            List<Dictionary<string, string>> jsonMap = JsonConvert.DeserializeObject<
-                List<Dictionary<string, string>>>
-            (System.Text.Encoding.UTF8.GetString(request.downloadHandler.data));
-            return jsonMap;
-                    }
+            return request.downloadHandler.text;
+        }
    
         /// <summary>
         ///Calls the "item/holders/:address/:tokenId" endpoint. queryParams
