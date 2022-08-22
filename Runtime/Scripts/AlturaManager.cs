@@ -250,21 +250,24 @@ namespace AlturaWeb3.SDK {
         /// Calls the "collection/:address" endpoint. queryParams
         /// returns the  a single collection object takes in address
         /// </summary>
-        public static async Task<Collections> GetCollection(string address, Dictionary<string, string> queryParams)
+        public static async Task<string> GetCollection(string address)
         {
-            Response<Collections> response = await Get<Collections>("collection/" + address, queryParams, null);
-            return response.response;
+            UnityWebRequest request = UnityWebRequest.Get(BASE_URL + "collection" + "/" + address);
+            await request.SendWebRequest();
+            return request.downloadHandler.text;
         }
 
         /// <summary>
         /// Calls the "collection/" endpoint. queryParams
         /// returns the  all collections based on queryParams perPage, page, sortBy, sortOrder, and slim
         /// </summary>
-        public static async Task<List<Collections>> GetCollections(Dictionary<string, string> queryParams)
+        public static async Task<string> GetCollections(string queryParams)
         {
-            Response<List<Collections>> response = await Get<List<Collections>>("collection", queryParams, null);
-            return response.response;
+            UnityWebRequest request = UnityWebRequest.Get(BASE_URL + "collection" + queryParams);
+            await request.SendWebRequest();
+            return request.downloadHandler.text;
         }
+
 
 
 
