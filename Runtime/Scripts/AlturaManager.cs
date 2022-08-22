@@ -142,7 +142,7 @@ namespace AlturaWeb3.SDK {
         /// Calls the user/verify_auth_code endpoint. with address and code
         /// returns true or false, no query params
         /// </summary>
-        public async Task<bool> VerifyAuthCode(string address, string code)
+        public static async Task<bool> VerifyAuthCode(string address, string code)
         {
             Dictionary<string, string> queryParams = new Dictionary<string, string>();
             queryParams.Add("address", address);
@@ -165,7 +165,7 @@ namespace AlturaWeb3.SDK {
         /// Calls the "user/:address" endpoint. queryParams
         /// returns the  user object
         /// </summary>
-        public async Task<User> GetUser(string address, Dictionary<string, string> queryParams)
+        public static async Task<User> GetUser(string address, Dictionary<string, string> queryParams)
         {
             Response<User> response = await Get<User>("user/" + address, queryParams, null);
             return response.response;
@@ -238,7 +238,7 @@ namespace AlturaWeb3.SDK {
     
 
     /*
-        public async Task<List<Activity>> GetItemActivity(Dictionary<string, string> queryParams)
+        public static async Task<List<Activity>> GetItemActivity(Dictionary<string, string> queryParams)
         {
             Response<List<Activity>> response = await Get<List<Activity>>("item/activity", queryParams, null);
             return response.response;
@@ -277,7 +277,7 @@ namespace AlturaWeb3.SDK {
         /// </summary>
         
         /*
-        public async Task<string> TransferItem(string collectionAddress, string tokenId, string toAddress)
+        public static async Task<string> TransferItem(string collectionAddress, string tokenId, string toAddress)
         {
             Dictionary<string, string> queryParams = new Dictionary<string, string>();
             queryParams.Add("collection_address", collectionAddress);
@@ -296,7 +296,7 @@ namespace AlturaWeb3.SDK {
         /// send bulk transfer POST request
         /// </summary>
 /*
-        public async Task<string> TransferItems(List<TransferItem> transferItems)
+        public static async Task<string> TransferItems(List<TransferItem> transferItems)
         {
             Dictionary<string, string> queryParams = new Dictionary<string, string>();
             queryParams.Add("collection_address", transferItems[0].collectionAddress);
@@ -317,7 +317,7 @@ namespace AlturaWeb3.SDK {
         /// </summary>
         
         /*
-        public async Task<string> MintItem(string address, string tokenId, string to, decimal amount)
+        public static async Task<string> MintItem(string address, string tokenId, string to, decimal amount)
         {
             Dictionary<string, string> queryParams = new Dictionary<string, string>();
             queryParams.Add("address", address);
