@@ -25,6 +25,28 @@ namespace AlturaWeb3.SDK {
     {
         public class Response<T> { public T response; }
 
+        public class GetUserOptions {
+            public string perPage = "100";
+            public string page = "1";
+            public string sortBy = "name";
+            public string sortDir = "asc";
+
+
+            public GetUserOptions(string perPage, string page, string sortBy, string sortDir) {
+                this.perPage = perPage;
+                this.page = page;
+                this.sortBy = sortBy;
+                this.sortDir = sortDir;
+            }
+
+            // return string for query string
+            public string ToQueryString() {
+                return "?perPage=" + perPage + "&page=" + page + "&sortBy=" + sortBy + "&sortDir=" + sortDir;
+            }
+
+
+        }
+
         public readonly static string BASE_URL = "https://api.alturanft.com/api/v2/";
 
         /// <summary>
@@ -151,12 +173,14 @@ namespace AlturaWeb3.SDK {
         public static async Task<string> GetUsers(string queryParams)
         {
             UnityWebRequest request = UnityWebRequest.Get(BASE_URL + "user" + queryParams);
+  
             await request.SendWebRequest();
                 return request.downloadHandler.text;
             
         }
 
         
+
 
 
         /// <summary>
@@ -175,13 +199,11 @@ namespace AlturaWeb3.SDK {
         /// Calls the "item/:address/:tokenId" endpoint. queryParams
         /// returns the  a single item object takes in address and tokenId
         /// </summary>
-        public async Task<Item> GetItem(string address, string tokenId)
+        public async Task<string> GetItem(string address, string tokenId)
         {
-            Dictionary<string, string> queryParams = new Dictionary<string, string>();
-            queryParams.Add("address", address);
-            queryParams.Add("token_id", tokenId);
-            Response<Item> response = await Get<Item>("item/" + address + "/" + tokenId, queryParams, null);
-            return response.response;
+            UnityWebRequest request = UnityWebRequest.Get(BASE_URL + "item" + "/" + address + "/" + tokenId);
+
+            return response;
         }
    
         /// <summary>
@@ -189,16 +211,13 @@ namespace AlturaWeb3.SDK {
         /// returns the  a single item object takes in address and tokenId
         /// </summary>
     
-    /*
-        public async Task<List<Holder>> GetItemHolders(string address, string tokenId)
+    
+        public async Task<string> GetItemHolders(string address, string tokenId)
         {
-            Dictionary<string, string> queryParams = new Dictionary<string, string>();
-            queryParams.Add("address", address);
-            queryParams.Add("token_id", tokenId);
-            Response<List<Holder>> response = await Get<List<Holder>>("item/holders/" + address + "/" + tokenId, queryParams, null);
-            return response.response;
+            UnityWebRequest request = UnityWebRequest.Get(BASE_URL + "item/holders");
+            return response;
         }
-    */
+    
 
         /// <summary>
         /// Calls the "item/events/:address/:tokenId" endpoint. queryParams
