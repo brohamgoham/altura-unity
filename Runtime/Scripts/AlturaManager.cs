@@ -224,13 +224,12 @@ namespace AlturaWeb3.SDK {
         /// Calls the "item/events/:address/:tokenId" endpoint. queryParams
         /// returns the  a single item object takes in address and tokenId
         /// </summary>
-        public static async Task<List<Event>> GetItemEvents(string address, string tokenId)
+        public static async Task<string> GetItemEvents(string address, string tokenId)
         {
-            Dictionary<string, string> queryParams = new Dictionary<string, string>();
-            queryParams.Add("address", address);
-            queryParams.Add("token_id", tokenId);
-            Response<List<Event>> response = await Get<List<Event>>("item/events/" + address + "/" + tokenId, queryParams, null);
-            return response.response;
+            UnityWebRequest request = UnityWebRequest.Get(BASE_URL + "item/events" + "/" + address + "/" + tokenId);
+            await request.SendWebRequest();
+            return request.downloadHandler.text;
+
         }
 
         
