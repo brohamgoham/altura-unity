@@ -165,17 +165,20 @@ namespace AlturaWeb3.SDK {
         /// Calls the "user/:address" endpoint. queryParams
         /// returns the  user object
         /// </summary>
-        public static async Task<User> GetUser(string address, Dictionary<string, string> queryParams)
+        public static async Task<User> GetUser(string address)
         {
-            Response<User> response = await Get<User>("user/" + address, queryParams, null);
-            return response.response;
+            UnityWebRequest request = UnityWebRequest.Get(BASE_URL + "user" + "/" + address);
+  
+            await request.SendWebRequest();
+            return request.downloadHandler.text;
         }
+
         public static async Task<string> GetUsers(string queryParams)
         {
             UnityWebRequest request = UnityWebRequest.Get(BASE_URL + "user" + queryParams);
   
             await request.SendWebRequest();
-                return request.downloadHandler.text;
+            return request.downloadHandler.text;
             
         }
 
@@ -214,7 +217,7 @@ namespace AlturaWeb3.SDK {
             UnityWebRequest request = UnityWebRequest.Get(BASE_URL + "item/holders" + "/" + address + "/" + tokenId);
             await request.SendWebRequest();
             return request.downloadHandler.text;
-                    }
+        }
     
 
         /// <summary>
