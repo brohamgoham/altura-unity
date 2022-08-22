@@ -267,18 +267,14 @@ namespace AlturaWeb3.SDK {
         /// POST request
         /// </summary>
         
-        /*
+        
         public static async Task<string> TransferItem(string collectionAddress, string tokenId, string toAddress)
         {
-            Dictionary<string, string> queryParams = new Dictionary<string, string>();
-            queryParams.Add("collection_address", collectionAddress);
-            queryParams.Add("token_id", tokenId);
-            queryParams.Add("to_address", toAddress);
-       //     Response<string> response = await Post<string>("item/transfer", queryParams, null);
-       
-            return response.response;
+            UnityWebRequest request = UnityWebRequest.Get(BASE_URL + "item/transfer" + "/" + collectionAddress + "/" + tokenId + "/" + toAddress);
+            await request.SendWebRequest();
+            return request.downloadHandler.text;
         }
-        */
+        
  
         /// <summary>
         /// Calls the "/api/v2/item/transfer" endpoint. queryParams
