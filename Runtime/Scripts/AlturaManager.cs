@@ -32,7 +32,7 @@ namespace AlturaWeb3.SDK {
         /// </summary>
 
         // token 
-        private string token;
+        private static string token;
         private string userId;
         private string userName;
         private string userEmail;
