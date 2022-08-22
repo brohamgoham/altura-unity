@@ -163,7 +163,7 @@ namespace AlturaWeb3.SDK {
         /// Calls the "item" endpoint. queryParams determing how many perPage, page, sortBy, sortOrder, and slim
         /// returns the  many item objects
         /// </summary>
-        public async Task<string> GetItems(string queryParams)
+        public static async Task<string> GetItems(string queryParams)
         {
             UnityWebRequest request = UnityWebRequest.Get(BASE_URL + "item" + queryParams);
             await request.SendWebRequest();
