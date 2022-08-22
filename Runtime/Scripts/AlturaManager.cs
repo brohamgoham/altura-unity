@@ -44,7 +44,7 @@ namespace AlturaWeb3.SDK {
         /// perPage=20&page=1&sortBy="name"&sortOrder="desc"&slim=true
         /// </summary>
 
-        private string CreateQueryParams(Dictionary<string, string> queryParams)
+        public string CreateQueryParams(Dictionary<string, string> queryParams)
         {
             string query = "?";
             foreach (KeyValuePair<string, string> entry in queryParams)
@@ -53,6 +53,7 @@ namespace AlturaWeb3.SDK {
             }
             return query;
         }
+
 
         /// <summary>
         /// add apiKey to the header of the request
@@ -149,9 +150,7 @@ namespace AlturaWeb3.SDK {
         }
         public static async Task<string> GetUsers(Dictionary<string, string> queryParams) {
             string url = BASE_URL + "user/";
-            if (queryParams != null) {
-                url += CreateQueryParams(queryParams);
-            }
+    
             UnityWebRequest webRequest = UnityWebRequest.Get(url + CreateQueryParams(queryParams));
          //   UnityWebRequest webRequest = UnityWebRequest.Get(url);
             await webRequest.SendWebRequest();
