@@ -318,9 +318,9 @@ namespace AlturaWeb3.SDK {
         {
             WWWForm form = new WWWForm();
             form.AddField("address", address);
-            form.AddField("to", to);
             form.AddField("tokenId", tokenId);
             form.AddField("amount", amount);
+            form.AddField("to", to);
             UnityWebRequest request = UnityWebRequest.Post(BASE_URL + "item/mint" + "?apiKey=" + apikey, form);
             await request.SendWebRequest();
             return request.downloadHandler.text;        }
