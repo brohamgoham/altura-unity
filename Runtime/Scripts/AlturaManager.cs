@@ -211,7 +211,7 @@ namespace AlturaWeb3.SDK {
     
         public static async Task<string> GetItemHolders(string address, string tokenId)
         {
-            UnityWebRequest request = UnityWebRequest.Get(BASE_URL + "item/holders");
+            UnityWebRequest request = UnityWebRequest.Get(BASE_URL + "item/holders" + "/" + address + "/" + tokenId);
             await request.SendWebRequest();
             return request.downloadHandler.text;
                     }
