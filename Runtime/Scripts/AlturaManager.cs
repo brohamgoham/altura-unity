@@ -290,19 +290,21 @@ namespace AlturaWeb3.SDK {
         /// takes in collectionAddress, tokenId, toAddress, and returns txnHash string
         /// send bulk transfer POST request
         /// </summary>
-/*
-        public static async Task<string> TransferItems(List<TransferItem> transferItems)
+
+
+        public static async Task<string> TransferItems(string apikey, string address, string to, string amounts, string tokenIds)
         {
-            Dictionary<string, string> queryParams = new Dictionary<string, string>();
-            queryParams.Add("collection_address", transferItems[0].collectionAddress);
-            queryParams.Add("token_id", transferItems[0].tokenId);
-            queryParams.Add("to_address", transferItems[0].toAddress);
-            Response<string> response = await Post<string>("item/transfer", queryParams, transferItems);
-            return response.response;
+            WWWForm form = new WWWForm();
+            form.AddField("address", address);
+            form.AddField("to", to);
+            form.AddField("tokenId", tokenIds);
+            form.AddField("amount", amounts);
+            UnityWebRequest request = UnityWebRequest.Post(BASE_URL + "item/transfer" + "?apiKey=" + apikey, form);
+
+            await request.SendWebRequest();
+            return request.downloadHandler.text;
         }
-
-*/
-
+        
 
 
         /// <summary>
@@ -311,18 +313,18 @@ namespace AlturaWeb3.SDK {
         /// POST request
         /// </summary>
         
-        /*
-        public static async Task<string> MintItem(string address, string tokenId, string to, decimal amount)
+        
+        public static async Task<string> MintItem(tring apikey, string address, string tokenId, string to, string amount)
         {
-            Dictionary<string, string> queryParams = new Dictionary<string, string>();
-            queryParams.Add("address", address);
-            queryParams.Add("token_id", tokenId);
-            queryParams.Add("to", to);
-            queryParams.Add("amount", amount.ToString());
-            Response<string> response = await Post<string>("item/mint", queryParams, null);
+            WWWForm form = new WWWForm();
+            form.AddField("address", address);
+            form.AddField("to", to);
+            form.AddField("tokenId", tokenId);
+            form.AddField("amount", amount);
+            UnityWebRequest request = UnityWebRequest.Post(BASE_URL + "item/mint" + "?apiKey=" + apikey, form);
             return response.response;
         }
-        */
+
     }
 
     [Serializable]
