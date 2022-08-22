@@ -44,7 +44,7 @@ namespace AlturaWeb3.SDK {
         /// perPage=20&page=1&sortBy="name"&sortOrder="desc"&slim=true
         /// </summary>
 
-        public string CreateQueryParams(Dictionary<string, string> queryParams)
+        public static string CreateQueryParams(Dictionary<string, string> queryParams)
         {
             string query = "?";
             foreach (KeyValuePair<string, string> entry in queryParams)
@@ -110,7 +110,7 @@ namespace AlturaWeb3.SDK {
         /// <summary>
         /// Builder for Unity Get request
         /// </summary>
-        private async Task<Response<T>> Get<T>(string url, Dictionary<string, string> queryParams, Dictionary<string, string> headers)
+        private static async Task<Response<T>> Get<T>(string url, Dictionary<string, string> queryParams, Dictionary<string, string> headers)
         {
             UnityWebRequest request = BuildRequest(url, UnityWebRequest.kHttpVerbGET, queryParams, headers, null);
             return await SendRequest<T>(request);
