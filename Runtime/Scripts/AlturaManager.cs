@@ -238,15 +238,13 @@ namespace AlturaWeb3.SDK {
         /// returns the  a single item object takes in address and tokenId
         /// </summary>
     
-
-    /*
-        public static async Task<List<Activity>> GetItemActivity(Dictionary<string, string> queryParams)
+        public static async Task<string> GetItemActivity(string queryParams)
         {
-            Response<List<Activity>> response = await Get<List<Activity>>("item/activity", queryParams, null);
-            return response.response;
+            UnityWebRequest request = UnityWebRequest.Get(BASE_URL + "item/activity" + queryParams);
+            await request.SendWebRequest();
+            return request.downloadHandler.text;
         }
 
-    */
 
         /// <summary>
         /// Calls the "collection/:address" endpoint. queryParams
