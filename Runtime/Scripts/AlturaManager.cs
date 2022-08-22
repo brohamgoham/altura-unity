@@ -150,9 +150,9 @@ namespace AlturaWeb3.SDK {
         }
         public static async Task<string> GetUsers(Dictionary<string, string> queryParams) {
             string url = BASE_URL + "user/";
-            string newUrl =  CreateQueryParams(queryParams);
-            string uUrl = url + newUrl;
-            UnityWebRequest webRequest = UnityWebRequest.Get(uUrl);
+            // queryParams are perPage, page, sortBy, sortOrder, slim
+            url += CreateQueryParams(queryParams);
+            UnityWebRequest webRequest = UnityWebRequest.Get(url);
          //   UnityWebRequest webRequest = UnityWebRequest.Get(url);
             await webRequest.SendWebRequest();
             return System.Text.Encoding.UTF8.GetString(webRequest.downloadHandler.data);
