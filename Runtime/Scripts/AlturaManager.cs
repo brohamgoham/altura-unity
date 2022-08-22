@@ -25,118 +25,7 @@ namespace AlturaWeb3.SDK {
     {
         public class Response<T> { public T response; }
 
-        public class GetUserOptions {
-            public string perPage = "100";
-            public string page = "1";
-            public string sortBy = "name";
-            public string sortDir = "asc";
-
-
-            public GetUserOptions(string perPage, string page, string sortBy, string sortDir) {
-                this.perPage = perPage;
-                this.page = page;
-                this.sortBy = sortBy;
-                this.sortDir = sortDir;
-            }
-
-            // return string for query string
-            public string ToQueryString() {
-                return "?perPage=" + perPage + "&page=" + page + "&sortBy=" + sortBy + "&sortDir=" + sortDir;
-            }
-
-
-        }
-
         public readonly static string BASE_URL = "https://api.alturanft.com/api/v2/";
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AlturaWeb3.SDK.AlturaClient"/> class.
-        /// </summary>
-
-        // token 
-        private static string token;
-        private string userId;
-        private string userName;
-        private string userEmail;
-        private string userAvatar;
-
-
-        /// <summary>
-        /// Create query params object from dictionary. add ? to the beginning of the query string and add & to the end of the query string.
-        /// perPage=20&page=1&sortBy="name"&sortOrder="desc"&slim=true
-        /// </summary>
-
-        public static string CreateQueryParams(Dictionary<string, string> queryParams)
-        {
-            string query = "?";
-            foreach (KeyValuePair<string, string> entry in queryParams)
-            {
-                query += entry.Key + "=" + entry.Value + "&";
-            }
-            return query;
-        }
-
-
-        /// <summary>
-        /// add apiKey to the header of the request
-        /// </summary>
-        private static void AddApiKey(UnityWebRequest request)
-        {
-            request.SetRequestHeader("Authorization", "Bearer " + token);
-        }
-
-        /// <summary>
-        /// builder for the request
-        /// </summary>
-        private static UnityWebRequest BuildRequest(string url, string method, Dictionary<string, string> queryParams, Dictionary<string, string> headers, byte[] body)
-        {
-            UnityWebRequest request = new UnityWebRequest(url, method);
-            if (headers != null)
-            {
-                foreach (KeyValuePair<string, string> entry in headers)
-                {
-                    request.SetRequestHeader(entry.Key, entry.Value);
-                }
-            }
-            if (queryParams != null)
-            {
-                request.url += CreateQueryParams(queryParams);
-            }
-            if (body != null)
-            {
-                request.uploadHandler = new UploadHandlerRaw(body);
-            }
-            return request;
-        }
-
-        /// <summary>
-        /// send the request and return the response
-        /// </summary>
-        private static async Task<Response<T>> SendRequest<T>(UnityWebRequest request)
-        {
-            Response<T> response = new Response<T>();
-            await request.SendWebRequest();
-            if (request.isNetworkError || request.isHttpError)
-            {
-                Debug.Log(request.error);
-                response.response = default(T);
-            }
-            else
-            {
-                response.response = JsonConvert.DeserializeObject<T>(request.downloadHandler.text);
-            }
-            return response;
-        }
-
-
-        /// <summary>
-        /// Builder for Unity Get request
-        /// </summary>
-        private static async Task<Response<T>> Get<T>(string url, Dictionary<string, string> queryParams, Dictionary<string, string> headers)
-        {
-            UnityWebRequest request = BuildRequest(url, UnityWebRequest.kHttpVerbGET, queryParams, headers, null);
-            return await SendRequest<T>(request);
-        }
 
         /// <summary>
         /// Calls the user/verify_auth_code endpoint. with address and code
@@ -257,9 +146,6 @@ namespace AlturaWeb3.SDK {
         }
 
 
-
-
-
         /// <summary>
         /// Calls the "/api/v2/item/transfer" endpoint. queryParams
         /// user must be authenticated to use this endpoint
@@ -322,114 +208,12 @@ namespace AlturaWeb3.SDK {
             form.AddField("amount", amount);
             form.AddField("to", to);
             UnityWebRequest request = UnityWebRequest.Post(BASE_URL + "item/mint" + "?apiKey=" + apikey, form);
-            request.SetRequestHeader("Content-Type", "application/json");
-            // api key is required for this endpoint
-            request.SetRequestHeader("Authorization", "Bearer " + apikey);
 
             await request.SendWebRequest();
-            return request.downloadHandler.text;        }
+            return request.downloadHandler.text;        
+            }
 
     }
-
-    [Serializable]
-    public class User
-    {   
-        public string Address;
-        public string Name;
-        public string Bio;
-        public string ProfilePic;
-        public string SocialLink;
-        public string ProfilePicUrl;
-    }
-
-    [Serializable]
-    public class AuthCode {
-        public string address;
-        public string code;
-    }
-
-    [Serializable]
-    public class AlturaItemProperty {
-        public string name;
-        public string value;
-        public bool isStatic;
-    }
-
-    [Serializable]
-public class Item
-{
-  public string name;
-  public string description;
-  public List<AlturaItemProperty> properties;
-  public int chainId;
-  public decimal royalty;
-  public string creatorAddress;
-  public string mintDate;
-  public bool stackable;
-  public decimal supply;
-  public decimal maxSupply;
-  public string image;
-  public string imageHash;
-  public string imageUrl;
-  public string fileType;
-  public bool isVideo;
-  public string otherImageVisibility;
-  public decimal holders;
-  public decimal listers;
-  public decimal likes;
-  public decimal views;
-  public bool isListed;
-  public string mostRecentListing;
-  public decimal cheapestListingPrice;
-  public string cheapestListingCurrency;
-  public decimal cheapestListingUSD;
-  public bool nsfw;
-  public bool isVerified;
-  public bool hasUnlockableContent;
-  public int imageIndex;
-  public int imageCount;
-  public int totalListings;
-}
-
-    [Serializable]
-    public class Collections 
-    {
-       public string Address;
-  public string Name;
-  public string Description;
-  public string Genre;
-  public string Image;
-  public string ImageHash;
-  public string OwnerAddress;
-  public string Slug;
-  public string Uri;
-  public string Website;
-  public int Holders;
-  public int Volume1D;
-  public int Volume1W;
-  public int Volume30D;
-  public int VolumeAll;
-  public string ImageUrl;
-  public int ChainId;
-  public string MintDate;
-    }
-
-[Serializable]
-    public class AlturaEvent {
-  public string id;
-  public string amount;
-  public long blockNumber;
-  public long chainId;
-  public string eventz;
-  public string from;
-  public string itemCollection;
-  public string itemRef;
-  public long timestamp;
-  public string to;
-  public long tokenId;
-  public string transactionHash;
-}
-
 
 }
 
