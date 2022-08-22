@@ -322,8 +322,8 @@ namespace AlturaWeb3.SDK {
             form.AddField("tokenId", tokenId);
             form.AddField("amount", amount);
             UnityWebRequest request = UnityWebRequest.Post(BASE_URL + "item/mint" + "?apiKey=" + apikey, form);
-            return response.response;
-        }
+            await request.SendWebRequest();
+            return request.downloadHandler.text;        }
 
     }
 
