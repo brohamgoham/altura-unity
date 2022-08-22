@@ -152,7 +152,7 @@ namespace AlturaWeb3.SDK {
             if (queryParams != null) {
                 url += CreateQueryParams(queryParams);
             }
-            UnityWebRequest request = UnityWebRequest.Get(url + CreateQueryParams(queryParams));
+            UnityWebRequest webRequest = UnityWebRequest.Get(url + CreateQueryParams(queryParams));
          //   UnityWebRequest webRequest = UnityWebRequest.Get(url);
             await webRequest.SendWebRequest();
             return System.Text.Encoding.UTF8.GetString(webRequest.downloadHandler.data);
