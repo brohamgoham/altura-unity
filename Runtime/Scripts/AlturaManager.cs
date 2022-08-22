@@ -165,7 +165,7 @@ namespace AlturaWeb3.SDK {
         /// Calls the "user/:address" endpoint. queryParams
         /// returns the  user object
         /// </summary>
-        public static async Task<User> GetUser(string address)
+        public static async Task<string> GetUser(string address)
         {
             UnityWebRequest request = UnityWebRequest.Get(BASE_URL + "user" + "/" + address);
   
