@@ -165,8 +165,9 @@ namespace AlturaWeb3.SDK {
         /// </summary>
         public async Task<List<Item>> GetItems(Dictionary<string, string> queryParams)
         {
-            Response<List<Item>> response = await Get<List<Item>>("item", queryParams, null);
-            return response.response;
+            UnityWebRequest request = UnityWebRequest.Get(BASE_URL + "item" + queryParams);
+            await request.SendWebRequest();
+            return request.downloadHandler.text;
         }
         
 
