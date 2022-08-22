@@ -268,13 +268,13 @@ namespace AlturaWeb3.SDK {
         /// </summary>
         
         
-        public static async Task<string> TransferItem(string collectionAddress, string tokenId, string toAddress)
+        public static async Task<string> TransferItem(string apikey)
         {
             WWWForm form = new WWWForm();
             form.AddField("collectionAddress", collectionAddress);
             form.AddField("tokenId", tokenId);
             form.AddField("toAddress", toAddress);
-            UnityWebRequest request = UnityWebRequest.Post(BASE_URL + "item/transfer" + "/" + collectionAddress + "/" + tokenId + "/" + toAddress, form);
+            UnityWebRequest request = UnityWebRequest.Post(BASE_URL + "item/transfer" + "?apiKey=" + apikey, form);
 
             await request.SendWebRequest();
             return request.downloadHandler.text;
