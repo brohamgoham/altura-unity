@@ -142,24 +142,12 @@ namespace AlturaWeb3.SDK {
         /// Calls the user/verify_auth_code endpoint. with address and code
         /// returns true or false, no query params
         /// </summary>
-        public static async Task<bool> VerifyAuthCode(string address, string code)
+        public static async Task<string> VerifyAuthCode(string address, string code)
         {
-            Dictionary<string, string> queryParams = new Dictionary<string, string>();
-            queryParams.Add("address", address);
-            queryParams.Add("code", code);
-            Response<bool> response = await Get<bool>("user/verify_auth_code", queryParams, null);
-            return response.response;
+            UnityWebRequest req = UnityWebRequest.Get(BASE_URL + "user/verify_auth_code" + "/" + address + "/" + code);
+            await req.SendWebRequest();
+            return req.downloadHandler.text;
         }
-
-        /// <summary>
-        /// Calls the "user" endpoint. queryParams
-        /// returns the  many user objects
-        /// </summary>
-   //     public async Task<List<User>> GetUsers(Dictionary<string, string> queryParams)
-     //   {
-         //   Response<List<User>> response = await Get<List<User>>("user", queryParams, null);
-       //     return response.response;
-       // }
 
         /// <summary>
         /// Calls the "user/:address" endpoint. queryParams
