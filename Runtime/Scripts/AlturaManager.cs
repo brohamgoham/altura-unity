@@ -314,7 +314,7 @@ namespace AlturaWeb3.SDK {
         /// </summary>
         
         
-        public static async Task<string> MintItem(tring apikey, string address, string tokenId, string to, string amount)
+        public static async Task<string> MintItem(string apikey, string address, string tokenId, string to, string amount)
         {
             WWWForm form = new WWWForm();
             form.AddField("address", address);
