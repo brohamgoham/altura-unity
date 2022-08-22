@@ -58,7 +58,7 @@ namespace AlturaWeb3.SDK {
         /// <summary>
         /// add apiKey to the header of the request
         /// </summary>
-        private void AddApiKey(UnityWebRequest request)
+        private static void AddApiKey(UnityWebRequest request)
         {
             request.SetRequestHeader("Authorization", "Bearer " + token);
         }
@@ -66,7 +66,7 @@ namespace AlturaWeb3.SDK {
         /// <summary>
         /// builder for the request
         /// </summary>
-        private UnityWebRequest BuildRequest(string url, string method, Dictionary<string, string> queryParams, Dictionary<string, string> headers, byte[] body)
+        private static UnityWebRequest BuildRequest(string url, string method, Dictionary<string, string> queryParams, Dictionary<string, string> headers, byte[] body)
         {
             UnityWebRequest request = new UnityWebRequest(url, method);
             if (headers != null)
@@ -90,7 +90,7 @@ namespace AlturaWeb3.SDK {
         /// <summary>
         /// send the request and return the response
         /// </summary>
-        private async Task<Response<T>> SendRequest<T>(UnityWebRequest request)
+        private static async Task<Response<T>> SendRequest<T>(UnityWebRequest request)
         {
             Response<T> response = new Response<T>();
             await request.SendWebRequest();
